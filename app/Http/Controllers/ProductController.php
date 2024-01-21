@@ -43,6 +43,7 @@ class ProductController extends Controller
         $this->productService->createProduct($data);
 
         return redirect()->route('products.index')->with('success', 'Product created successfully.');
+        //////i have not create the views files
     }
 
     public function edit($productId)
