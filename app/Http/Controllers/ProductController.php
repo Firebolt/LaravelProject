@@ -34,16 +34,16 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-        'name' => 'required|string',
-        'description' => 'required|string',
-        'price' => 'required|numeric',
-        'stock_quantity' => 'required|integer',
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'price' => 'required|numeric',
+            'stock_quantity' => 'required|integer',
         ]);
 
         $this->productService->createProduct($data);
 
         return redirect()->route('products.index')->with('success', 'Product created successfully.');
-        //////i have not create the views files
+        //i have not create the views files
     }
 
     public function edit($productId)
