@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Services\ProductService;
+use App\Models\Product;
 
 class ProductController extends Controller
 {
@@ -16,34 +18,34 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products = $this->productService->getAllProducts();
-        return view('products.index', ['products' => $products]);
+        $Products = Product::all();
+        return view('products.index', ['Products' => $Products]);
     }
 
-    public function show($productId)
+    public function show($id)
     {
-        $product = $this->productService->getProductById($productId);
+        $product = Product::findOrFail($id);
         return view('products.show', compact('product'));
     }
 
     public function create()
     {
-        return view('products.create');
+        $categories = Category::all();
+        return view('products.create', ['categories' => $categories]);
     }
 
-    public function store(Request $request)
+    public function store()
     {
-        $data = $request->validate([
-            'name' => 'required|string',
-            'description' => 'required|string',
-            'price' => 'required|numeric',
-            'stock_quantity' => 'required|integer',
+        $product = new Product([
+            'name' => request('name'),
+            'description' => request('description'),
+            'price' => request('price'),
+            'stock_quantity' => request('stock_quantity'),
+            'category_id' => request('category_id'),
         ]);
-
-        $this->productService->createProduct($data);
+        $product->save();
 
         return redirect()->route('products.index')->with('success', 'Product created successfully.');
-        //i have not create the views files
     }
 
     public function edit($productId)
