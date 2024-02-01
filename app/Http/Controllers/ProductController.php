@@ -16,10 +16,28 @@ class ProductController extends Controller
         $this->productService = $productService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        $name = $request->query('name');
+        $category = $request->query('category');
+        $price = $request->query('price');
         $Products = Product::all();
-        return view('products.index', ['Products' => $Products]);
+        $highestPrice = ceil($Products->max('price') / 10) * 10;
+        if ($highestPrice < 10) {
+            $highestPrice = 10;
+        }
+        $minPrice = $Products->min('price');
+        if ($name) {
+            $Products = $Products->where('name', 'like', '%' . $name . '%');
+        }
+        if ($category) {
+            $Products = $Products->whereIn('category_id', $category);
+        }
+        if ($price) {
+            $Products = $Products->where('price', '<=', $price);
+        }
+        $categories = Category::all();
+        return view('products.index', ['Products' => $Products, 'categories' => $categories, 'highestPrice' => $highestPrice, 'minPrice' => $minPrice]);
     }
 
     public function show($id)
@@ -57,11 +75,11 @@ class ProductController extends Controller
     public function update(Request $request, $productId)
     {
         $data = $request->validate([
-        'name' => 'required|string',
-        'description' => 'required|string',
-        'price' => 'required|numeric',
-        'stock_quantity' => 'required|integer',
-            
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'price' => 'required|numeric',
+            'stock_quantity' => 'required|integer',
+            'category_id' => 'required|integer',
         ]);
 
         $this->productService->updateProduct($productId, $data);

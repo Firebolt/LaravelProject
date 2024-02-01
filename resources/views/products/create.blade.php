@@ -2,7 +2,7 @@
 </head>
 @extends('layouts.app')
 @section('content')
-        <link href="{{ asset('sb-admin.css') }}" rel="stylesheet">
+<link href="{{ asset('sb-admin.css') }}" rel="stylesheet">
 <div class='container'>
     <div class='card card-login mx-auto mt-5'>
         <div class='card-header'>Create a product"</div>

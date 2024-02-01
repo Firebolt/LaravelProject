@@ -12,8 +12,6 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         <link href="{{ asset('fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
 
-        <!-- Styles -->
-
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
@@ -35,5 +33,8 @@
                 @yield('content')
             </main>
         </div>
+        <footer class="bg-white dark:bg-gray-800 text-gray-300 dark:text-gray-700">
+            <span class="">2024 &copy; All rights reserved</span>
+        </footer>
     </body>
 </html>
