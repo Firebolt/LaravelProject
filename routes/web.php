@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-// use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
+
+require __DIR__.'/auth.php';
 
 Route::get('/', 'App\Http\Controllers\ProductController@index')->name('products.index');
 Route::get('/create', 'App\Http\Controllers\ProductController@create');
@@ -19,4 +20,3 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
