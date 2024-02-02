@@ -2,7 +2,7 @@
 @section('content')
 <div class="flex min-h-screen">
     <div class="w-1/4 flex flex-col min-h-screen">
-        <div class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 flex-grow min-h-screen p-4">
+        <div class="    bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 flex-grow min-h-screen p-4">
             <p class="font-bold mb-4 text-gray-300 dark:text-gray-700" style="font-size: 2.5rem;">Filters</p>
             <form method="GET" action='/'>
                 @csrf
@@ -32,14 +32,50 @@
             </form>
         </div>
     </div>
-    <div class="">
-        <div>
-            @foreach ($Products as $Product)
-                <div class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 p-4">
-                    <p class="font-bold text-xl">{{ $Product -> name }}</p>
-                    <p class="text-gray-300 dark:text-gray-700">{{ $Product -> price }}</p>
+    <div class="w-full min-h-screen">
+        <div class="min-h-screen px-6">
+            @auth
+                @if(auth()->user()->role === 'admin')
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('products.create')" :active="request()->routeIs('products.create')">
+                        {{ __('Add a new product') }}
+                    </x-nav-link>
                 </div>
-            @endforeach
+                @endif
+            @endauth
+            <table class="w-full bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
+                <thead>
+                    <tr>
+                        <th class="font-bold text-xl px-4 w-1/2">Name</th>
+                        <th class="font-bold text-xl px-4 w-1/4">Price</th>
+                        <th class="font-bold text-xl px-4 w-1/4">Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($Products as $Product)
+                    <tr>
+                        <td class="text-gray-300 dark:text-gray-700 py-4 px-4">{{ $Product->name }}</td>
+                        <td class="text-gray-300 dark:text-gray-700 py-4 px-4">{{ $Product->price }}</td>
+                        <td class="center-content text-gray-300 dark:text-gray-700 py-4 px-4">
+                            <a href="{{ route('products.show', $Product->id) }}" class="hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline border">See Details</a>
+                        </td>
+                        @auth
+                            @if(auth()->user()->role === 'admin')
+                            <td class="center-content text-gray-300 dark:text-gray-700 py-4 px-4">
+                                <a href="{{ route('products.edit', $Product->id) }}" class="hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline border">Edit</a>
+                            </td>
+                            <td class="center-content text-gray-300 dark:text-gray-700 py-4 px-4">
+                                <form method="POST" action="{{ route('products.destroy', $Product->id) }}">
+                                    @csrf
+                                    <button type="submit" class="hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline border">Delete</button>
+                                </form>
+                            </td>
+                            @endif
+                        @endauth
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
