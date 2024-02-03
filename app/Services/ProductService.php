@@ -4,23 +4,23 @@
 
 namespace App\Services;
 
-use App\Models\Products;
+use App\Models\Product;
 
 class ProductService
 {
     public function getAllProducts()
     {
-        return Products::all();
+        return Product::all();
     }
 
     public function getProductById($productId)
     {
-        return Products::findOrFail($productId);
+        return Product::findOrFail($productId);
     }
 
     public function createProduct($data)
     {
-        return Products::create($data);
+        return Product::create($data);
     }
 
     public function updateProduct($productId, $data)
