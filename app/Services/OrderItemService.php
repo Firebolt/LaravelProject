@@ -2,23 +2,23 @@
 
 namespace App\Services;
 
-use App\Models\OrderItems;
+use App\Models\OrderItem;
 
 class OrderItemService
 {
     public function getAllOrderItems()
     {
-        return OrderItems::all();
+        return OrderItem::all();
     }
 
     public function getOrderItemById($orderItemId)
     {
-        return OrderItems::findOrFail($orderItemId);
+        return OrderItem::findOrFail($orderItemId);
     }
 
     public function createOrderItem($data)
     {
-        return OrderItems::create($data);
+        return OrderItem::create($data);
     }
 
     public function updateOrderItem($orderItemId, $data)
