@@ -12,7 +12,6 @@ class CheckRole
         if (! $request->user() || ! $request->user()->hasRole('admin')) {
             return redirect('/');
         }
-
         return $next($request);
     }
 }

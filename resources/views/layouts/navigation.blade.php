@@ -21,9 +21,15 @@
             <!-- Settings Dropdown -->
             @auth
             <div class="sm:flex sm:items-center sm:ms-6">
-                <x-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.index')">
-                    {{ __('Categories') }}
-                </x-nav-link>
+                @if (request()->routeIs('categories.index'))
+                    <x-nav-link :href="route('categories.create')">
+                        {{ __('Add Category') }}
+                    </x-nav-link>
+                @else
+                    <x-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.*')">
+                        {{ __('Categories') }}
+                    </x-nav-link>
+                @endif
             </div>
             <div class="sm:flex sm:items-center sm:ms-6">
                 <x-nav-link :href="route('products.create')" :active="request()->routeIs('products.create')">

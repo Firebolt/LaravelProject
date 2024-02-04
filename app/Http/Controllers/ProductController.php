@@ -6,6 +6,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Services\ProductService;
 use App\Models\Product;
+use Exception;
 
 class ProductController extends Controller
 {
@@ -69,7 +70,8 @@ class ProductController extends Controller
     public function edit($productId)
     {
         $product = $this->productService->getProductById($productId);
-        return view('products.edit', compact('product'));
+        $categories = Category::all();
+        return view('products.edit', compact('product', 'categories'));
     }
 
     public function update(Request $request, $productId)
@@ -79,10 +81,14 @@ class ProductController extends Controller
             'description' => 'required|string',
             'price' => 'required|numeric',
             'stock_quantity' => 'required|integer',
-            'category_id' => 'required|integer',
+            'category_id' => 'required|integer|exists:categories,id',
         ]);
 
-        $this->productService->updateProduct($productId, $data);
+        try {
+            $this->productService->updateProduct($productId, $data);
+        } catch (Exception $e) {
+            return redirect()->back()->withInput()->withErrors(['update' => 'Failed to update product. Error: ' . $e->getMessage()]);
+        }
 
         return redirect()->route('products.index')->with('success', 'Product updated successfully.');
     }

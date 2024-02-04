@@ -4,14 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\OrderService;
+use App\Services\OrderItemService;
+use Exception;
 
-class OrderCotnroller extends Controller
+class OrderController extends Controller
 {
     protected $orderService;
+    protected $orderItemService;
 
-    public function __construct(OrderService $orderService)
+    public function __construct(OrderService $orderService, OrderItemService $orderItemService)
     {
         $this->orderService = $orderService;
+        $this->orderItemService = $orderItemService;
     }
 
     public function index()
@@ -23,7 +27,8 @@ class OrderCotnroller extends Controller
     public function show($orderId)
     {
         $order = $this->orderService->getOrderById($orderId);
-        return view('orders.show', compact('order'));
+        $orderItems = $order->orderItems;
+        return view('orders.show', compact('order', 'orderItems'));
     }
 
     public function create()
@@ -34,7 +39,7 @@ class OrderCotnroller extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'customer_id' => 'required|integer',
+            'customer_id' => 'required|integer|exists:customers,id',
             'total_amount' => 'required|numeric',
             'status' => 'required|string',
         ]);
@@ -47,18 +52,23 @@ class OrderCotnroller extends Controller
     public function edit($orderId)
     {
         $order = $this->orderService->getOrderById($orderId);
-        return view('orders.edit', compact('order'));
+        $orderItems = $order->orderItems;
+        return view('orders.edit', compact('order', 'orderItems'));
     }
 
     public function update(Request $request, $orderId)
     {
         $data = $request->validate([
-            'customer_id' => 'required|integer',
+            'customer_id' => 'required|integer|exists:customers,id',
             'total_amount' => 'required|numeric',
             'status' => 'required|string',
         ]);
 
-        $this->orderService->updateOrder($orderId, $data);
+        try {
+            $this->orderService->updateOrder($orderId, $data);
+        } catch (Exception $e) {
+            return redirect()->back()->withInput()->withErrors(['update' => 'Failed to update product. Error: ' . $e->getMessage()]);
+        }
 
         return redirect()->route('orders.index')->with('success', 'Order updated successfully.');
     }
