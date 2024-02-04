@@ -46,7 +46,7 @@
                     @foreach ($Products as $Product)
                     <tr>
                         <td class="center-content text-gray-300 dark:text-gray-700 py-4 px-4">{{ $Product->name }}</td>
-                        <td class="center-content text-gray-300 dark:text-gray-700 py-4 px-4">{{ $Product->price }}</td>
+                        <td class="center-content text-gray-300 dark:text-gray-700 py-4 px-4">€{{ $Product->price }}</td>
                         <td class="center-content text-gray-300 dark:text-gray-700 py-4 px-4">
                             <a href="{{ route('products.show', $Product->id) }}" class="hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline border">See Details</a>
                         </td>

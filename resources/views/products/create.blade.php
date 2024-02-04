@@ -22,12 +22,12 @@
         </div>
         <div>
             <x-input-label for="price" :value="__('Price')" />
-            <x-text-input id="price" class="block mt-1 w-full" type="text" name="price" pattern="[0-9]+" :value="old('price')" required autofocus autocomplete="price" />
+            <x-text-input id="price" class="block mt-1 w-full" type="text" name="price" pattern="[0-9]+(\.[0-9]{2})?" :value="old('price')" required autofocus autocomplete="price" />
             <x-input-error :messages="$errors->get('price')" class="mt-2" />
         </div>
         <div>
             <x-input-label for="stock_quantity" :value="__('Stock Quantity')" />
-            <x-text-input id="stock_quantity" class="block mt-1 w-full" type="text" name="stock_quantity" pattern="[0-9]+(\.[0-9]{2})?" :value="old('stock_quantity')" required autofocus autocomplete="stock_quantity" />
+            <x-text-input id="stock_quantity" class="block mt-1 w-full" type="text" name="stock_quantity" pattern="[0-9]+" :value="old('stock_quantity')" required autofocus autocomplete="stock_quantity" />
             <x-input-error :messages="$errors->get('stock_quantity')" class="mt-2" />
         </div>
         <div class="flex items-center justify-center mt-4">

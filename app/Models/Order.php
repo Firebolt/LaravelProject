@@ -8,13 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     protected $fillable = [
-        'customer_id', 'total_amount', 'status',  
+        'customer_id', 'total_amount', 'status', 'payment_status', 'payment_method',
     ];
 
     protected $casts = [
         'customer_id' => 'integer',
         'total_amount' => 'decimal:2',
-        
     ];
     use HasFactory;
     public function customer()

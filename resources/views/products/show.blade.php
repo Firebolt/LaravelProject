@@ -9,7 +9,7 @@
         </tr>
         <tr>
             <td class="center-content text-gray-300 dark:text-gray-700 py-4 px-4">{{ $product -> name }}</td>
-            <td class="center-content text-gray-300 dark:text-gray-700 py-4 px-4">{{ $product -> price }}€</td>
+            <td class="center-content text-gray-300 dark:text-gray-700 py-4 px-4">€{{ $product -> price }}</td>
             <td class="center-content text-gray-300 dark:text-gray-700 py-4 px-4">{{ $product -> description }}</td>
 
         </tr>

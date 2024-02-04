@@ -17,7 +17,6 @@ class OrderItem extends Model
         'product_id' => 'integer',
         'quantity' => 'integer',
         'subtotal' => 'decimal:2',
-        
     ];
     
     public function order()

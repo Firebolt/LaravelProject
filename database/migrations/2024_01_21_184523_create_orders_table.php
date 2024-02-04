@@ -16,6 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->decimal('total_price', 8, 2);
             $table->string('status');
+            $table->string('payment_status');
+            $table->string('payment_method');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
