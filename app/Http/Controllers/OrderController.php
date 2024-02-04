@@ -42,7 +42,10 @@ class OrderController extends Controller
             'customer_id' => 'required|integer|exists:customers,id',
             'total_amount' => 'required|numeric',
             'status' => 'required|string',
+            'transaction_method' => 'required|string',
         ]);
+
+        $data['transaction_status'] = 'pending';
 
         $this->orderService->createOrder($data);
 
@@ -62,6 +65,8 @@ class OrderController extends Controller
             'customer_id' => 'required|integer|exists:customers,id',
             'total_amount' => 'required|numeric',
             'status' => 'required|string',
+            'transaction_method' => 'required|string',
+            'transaction_status' => 'required|string',
         ]);
 
         try {
