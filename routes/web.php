@@ -19,10 +19,10 @@ Route::middleware(['auth', 'role'])->group(function () {
     Route::patch('/{id}', [ProductController::class, 'update'])->name('products.update');
     Route::delete('/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
     Route::get('/create', [ProductController::class, 'create'])->name('products.create');
+    Route::post('/', [ProductController::class, 'store'])->name('products.store');
 });
 
 Route::get('/', [ProductController::class, 'index'])->name('products.index');
-Route::post('/', [ProductController::class, 'store'])->name('products.store');
 Route::get('/{id}', [ProductController::class, 'show'])->name('products.show');
 
 Route::middleware('auth')->group(function () {

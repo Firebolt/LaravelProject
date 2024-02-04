@@ -53,8 +53,16 @@ class ProductController extends Controller
         return view('products.create', ['categories' => $categories]);
     }
 
-    public function store()
+    public function store(request $request)
     {
+        $request->validate([
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'price' => 'required|numeric',
+            'stock_quantity' => 'required|integer',
+            'category_id' => 'required|integer|exists:categories,id',
+        ]);
+
         $product = new Product([
             'name' => request('name'),
             'description' => request('description'),
