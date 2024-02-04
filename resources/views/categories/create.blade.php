@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layouts.app')
 @section('content')
 <x-guest-layout>
     <form method='POST' action="{{ route('categories.store') }}">

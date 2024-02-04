@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <x-guest-layout>
-    <form method="POST" action="{{ route('categories.update', $id) }}">
+    <form method="POST" action="{{ route('categories.update', $category->id) }}">
         @csrf
         @method('PATCH')
 

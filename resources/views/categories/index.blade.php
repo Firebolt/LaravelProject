@@ -3,10 +3,10 @@
     <table class="w-full bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
         <thead>
             <tr>
-                <th class="font-bold text-xl px-4 w-1/4">Name</th>
-                <th class="font-bold text-xl px-4 w-1/4">Products</th>
-                <th class="font-bold text-xl px-4 w-1/4">Edit</th>
-                <th class="font-bold text-xl px-4 w-1/4">Delete</th>
+                <th class="font-bold text-xl px-4 w-1/4 text-gray-300 dark:text-gray-700">Name</th>
+                <th class="font-bold text-xl px-4 w-1/4 text-gray-300 dark:text-gray-700">Products</th>
+                <th class="font-bold text-xl px-4 w-1/4 text-gray-300 dark:text-gray-700">Edit</th>
+                <th class="font-bold text-xl px-4 w-1/4 text-gray-300 dark:text-gray-700">Delete</th>
             </tr>
         </thead>
         <tbody>

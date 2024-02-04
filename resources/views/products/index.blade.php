@@ -34,21 +34,12 @@
     </div>
     <div class="w-full min-h-screen">
         <div class="min-h-screen px-6">
-            @auth
-                @if(auth()->user()->role === 'admin')
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('products.create')" :active="request()->routeIs('products.create')">
-                        {{ __('Add a new product') }}
-                    </x-nav-link>
-                </div>
-                @endif
-            @endauth
             <table class="w-full bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
                 <thead>
                     <tr>
-                        <th class="font-bold text-xl px-4 w-1/2">Name</th>
-                        <th class="font-bold text-xl px-4 w-1/4">Price</th>
-                        <th class="font-bold text-xl px-4 w-1/4">Details</th>
+                        <th class="font-bold text-xl px-4 w-1/2 text-gray-300 dark:text-gray-700">Name</th>
+                        <th class="font-bold text-xl px-4 w-1/4 text-gray-300 dark:text-gray-700">Price</th>
+                        <th class="font-bold text-xl px-4 w-1/4 text-gray-300 dark:text-gray-700">Details</th>
                     </tr>
                 </thead>
                 <tbody>
