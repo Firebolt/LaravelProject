@@ -28,15 +28,19 @@ class ProductController extends Controller
             $highestPrice = 10;
         }
         $minPrice = $Products->min('price');
+        $query = Product::query();
+
         if ($name) {
-            $Products = $Products->where('name', 'like', '%' . $name . '%');
+            $query->where('name', 'like', '%' . $name . '%');
         }
         if ($category) {
-            $Products = $Products->whereIn('category_id', $category);
+            $query->whereIn('category_id', $category);
         }
         if ($price) {
-            $Products = $Products->where('price', '<=', $price);
+            $query->where('price', '<=', $price);
         }
+
+        $Products = $query->orderBy('name')->orderBy('category_id')->get();
         $categories = Category::all();
         return view('products.index', ['Products' => $Products, 'categories' => $categories, 'highestPrice' => $highestPrice, 'minPrice' => $minPrice]);
     }

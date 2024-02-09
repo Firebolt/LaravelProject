@@ -26,10 +26,14 @@ class CategoryController extends Controller
         return view('categories.create');
     }
 
-    public function store()
+    public function store(Request $request)
     {
+        $data = $request->validate([
+            'name' => 'required|string',
+        ]);
+
         $category = new Category([
-            'name' => request('name'),
+            'name' => $data['name'],
         ]);
         $category->save();
 

@@ -20,6 +20,7 @@
 
             <!-- Settings Dropdown -->
             @auth
+            @if (Auth::user()->role === 'admin')
             <div class="sm:flex sm:items-center sm:ms-6">
                 @if (request()->routeIs('categories.index'))
                     <x-nav-link :href="route('categories.create')">
@@ -36,6 +37,8 @@
                     {{ __('Add Product') }}
                 </x-nav-link>
             </div>
+            @endif
+            
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">

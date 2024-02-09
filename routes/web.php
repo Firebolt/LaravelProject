@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
 require __DIR__.'/auth.php';
@@ -22,12 +23,15 @@ Route::middleware(['auth', 'role'])->group(function () {
     Route::post('/', [ProductController::class, 'store'])->name('products.store');
 });
 
-Route::get('/', [ProductController::class, 'index'])->name('products.index');
-Route::get('/{id}', [ProductController::class, 'show'])->name('products.show');
-
 Route::middleware('auth')->group(function () {
+    Route::post('/order/', [OrderController::class, 'store'])->name('orders.store');
+    Route::get('/order/', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('/order/{id}', [OrderController::class, 'show'])->name('orders.show');
+
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile/edit', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/', [ProductController::class, 'index'])->name('products.index');
+Route::get('/{id}', [ProductController::class, 'show'])->name('products.show');

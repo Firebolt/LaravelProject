@@ -12,7 +12,7 @@ class OrderService
 
     public function getOrderById($orderId)
     {
-        return Order::findOrFail($orderId);
+        return Order::find($orderId);
     }
 
     public function createOrder($data)

@@ -56,6 +56,16 @@ class CategoryTest extends TestCase
         $response->assertRedirect('/');
         $this->assertDatabaseMissing('categories', ['name' => 'Test Category']);
     }
+
+    public function test_store_validate()
+    {
+        $user = User::factory()->create(['role' => 'admin']);
+        $response = $this->actingAs($user)->post(route('categories.store'), [
+            'name' => null,
+        ]);
+
+        $response->assertSessionHasErrors('name');
+    }
     
     public function test_edit()
     {
@@ -99,6 +109,27 @@ class CategoryTest extends TestCase
         $this->assertDatabaseMissing('categories', ['name' => 'Updated Category']);
     }
 
+    public function test_update_validate()
+    {
+        $user = User::factory()->create(['role' => 'admin']);
+        $category = Category::factory()->create();
+        $response = $this->actingAs($user)->patch(route('categories.update', ['id' => $category->id,]), [
+            'name' => null,
+        ]);
+
+        $response->assertSessionHasErrors('name');
+    }
+
+    public function test_update_not_found()
+    {
+        $user = User::factory()->create(['role' => 'admin']);
+        $response = $this->actingAs($user)->patch(route('categories.update', ['id' => 1]), [
+            'name' => 'Updated Category',
+        ]);
+
+        $response->assertRedirect('/categories');
+    }
+
     public function test_destroy()
     {
         $user = User::factory()->create(['role' => 'admin']);
@@ -117,5 +148,13 @@ class CategoryTest extends TestCase
 
         $response->assertRedirect('/');
         $this->assertDatabaseHas('categories', ['id' => $category->id]);
+    }
+
+    public function test_destroy_not_found()
+    {
+        $user = User::factory()->create(['role' => 'admin']);
+        $response = $this->actingAs($user)->delete(route('categories.destroy', ['id' => 1]));
+
+        $response->assertRedirect('/categories');
     }
 }
