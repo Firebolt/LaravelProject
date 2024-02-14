@@ -8,6 +8,8 @@ use App\Services\ProductService;
 use App\Models\Product;
 use Exception;
 
+use function Laravel\Prompts\error;
+
 class ProductController extends Controller
 {
     protected $productService;
@@ -29,7 +31,6 @@ class ProductController extends Controller
         }
         $minPrice = $Products->min('price');
         $query = Product::query();
-
         if ($name) {
             $query->where('name', 'like', '%' . $name . '%');
         }

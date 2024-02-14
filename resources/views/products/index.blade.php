@@ -15,7 +15,7 @@
                 <div class="form-group mb-4">
                     <div class="form-label-group">
                         @foreach($categories as $category)
-                            <input type="checkbox" name="category[]" value="{{ $category->name }}" id="category-{{ $category->name }}" checked class="mr-2 leading-tight" onclick="updateSelectAllCheckbox()">
+                            <input type="checkbox" name="category[]" value="{{ $category->id }}" id="category-{{ $category->name }}" checked class="mr-2 leading-tight" onclick="updateSelectAllCheckbox()">
                             <label for="category-{{ $category->name }}" class="text-gray-300 dark:text-gray-700 text-sm font-bold mb-2">{{ $category->name }}</label><br>
                         @endforeach
                         <input type="checkbox" id="select-all" name="select-all" onclick="selectAllCheckboxes(this)" checked class="mr-2 leading-tight">
